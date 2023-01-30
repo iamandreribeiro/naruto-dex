@@ -1,31 +1,54 @@
-import { connectionDB } from "../database/db.js";
-import { Ninja, NinjaEntity } from "../protocols/ninja.js";
-import { QueryResult } from "pg";
+import { Ninja, UpdateNinja } from "../protocols/ninja.js";
+import prisma from "../database/db.js";
 
-export function findMany(): Promise<QueryResult<NinjaEntity>> {
-    return connectionDB.query(`SELECT * FROM ninjas;`);
+async function findMany() {
+    return prisma.ninjas.findMany();
 }
 
-export function insertUnique(newNinja: Ninja): Promise<QueryResult<Ninja>> {
-    return connectionDB.query(`
-        INSERT INTO ninjas (name, clan, jutsu) VALUES ($1, $2, $3);
-    `,[newNinja.name, newNinja.clan, newNinja.jutsu]);
+async function insertUnique(newNinja: Ninja) {
+    return prisma.ninjas.create({
+        data: {
+            name: newNinja.name,
+            clan: newNinja.clan,
+            jutsu: newNinja.jutsu
+        }
+    });
 }
 
-export function updateUnique(newNinja: Ninja): Promise<QueryResult<Ninja>> {
-    return connectionDB.query(`
-        UPDATE ninjas SET name = $1, clan = $2, jutsu = $3 WHERE name = $1;
-    `, [newNinja.name, newNinja.clan, newNinja.jutsu]);
+async function updateUnique(newNinja: UpdateNinja) {
+    return prisma.ninjas.update({
+        where: {
+            id: newNinja.id
+        },
+        data: {
+            name: newNinja.name,
+            clan: newNinja.clan,
+            jutsu: newNinja.jutsu
+        }
+    });
 }
 
-export function deleteUnique(name: Ninja): Promise<QueryResult<Ninja>> {
-    return connectionDB.query(`
-        DELETE FROM ninjas WHERE name = $1;
-    `, [name]);
+async function deleteUnique(id: number) {
+    prisma.ninjas.delete({
+        where: {
+            id
+        }
+    })
+}
+async function findById(id) {
+    return prisma.ninjas.findFirst({
+        where: {
+            id
+        }
+    });
 }
 
-export function findById(id): Promise<QueryResult<NinjaEntity>> {
-    return connectionDB.query(`
-        SELECT * FROM ninjas WHERE id = $1;
-    `, [id]);
+const ninjaRepository = {
+    findMany,
+    insertUnique, 
+    updateUnique, 
+    deleteUnique, 
+    findById
 }
+
+export default ninjaRepository;

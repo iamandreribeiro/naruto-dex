@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/ninjas", insertNinja);
 router.get("/ninjas", selectNinjas);
-router.patch("/ninjas", updateNinja);
+router.patch("/ninjas/:id", updateNinja);
 router.delete("/ninjas", deleteNinja);
 router.get("/ninjas/:id", selectNinjaById);
 

@@ -6,3 +6,10 @@ export type NinjaEntity = {
 }
 
 export type Ninja = Omit<NinjaEntity, "createdAt">
+
+export type UpdateNinja = {
+    id: number,
+    name: string,
+    clan: string,
+    jutsu: string,
+}
