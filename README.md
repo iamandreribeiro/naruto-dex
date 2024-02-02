@@ -1,7 +1,7 @@
-# Parecido com a famosa Pokedex, mas de naruto, conheça a naruto-dex!
+# Semelhante à famosa Pokédex, mas para o universo de Naruto, apresento a Naruto-dex!
 
- - Primeiro projeto feito totalmente em TypeScript
- - Feito exclusivamente com intuito de praticar e aplicar conhecimentos adquiridos sobre TS 
+- Este é o meu primeiro projeto desenvolvido totalmente em TypeScript.
+- Foi criado exclusivamente com o objetivo de praticar e aplicar os conhecimentos adquiridos sobre TS.
 <br>
 POST: /ninjas
 Body: { "name": "Shikamaru Nara", "Clan": "Nara", "Shadow Clutch Technique" }
